@@ -1,5 +1,5 @@
 {
-  "name": "nats-gateway Webdriver demo",
+  "name": "nats-gateway WebdriverIO demo",
   "type": "module",
   "devDependencies": {
     "@wdio/allure-reporter": "^8.20.0",
