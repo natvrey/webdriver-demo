@@ -310,23 +310,21 @@ export const config = {
   onComplete: function (exitCode, config, capabilities, results) {
     const reportError = new Error("Could not generate Allure report");
     const generation = allure(["generate", "allure-results", "--clean"]);
-    return (
-      new Promise() <
-      string >
-      ((resolve, reject) => {
-        const generationTimeout = setTimeout(() => reject(reportError), 15000);
 
-        generation.on("exit", function (exitCode) {
-          clearTimeout(generationTimeout);
+    return new Promise((resolve, reject) => {
+      const generationTimeout = setTimeout(() => reject(reportError), 15000);
 
-          if (exitCode !== 0) {
-            return reject(reportError);
-          }
+      generation.on("exit", function (exitCode) {
+        clearTimeout(generationTimeout);
 
-          resolve("Allure report successfully generated");
-        });
-      })
-    );
+        if (exitCode !== 0) {
+          return reject(reportError);
+        }
+
+        resolve("Allure report successfully generated");
+      });
+    });
+    // );
   },
   /**
    * Gets executed when a refresh happens.
